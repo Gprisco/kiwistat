@@ -12,6 +12,7 @@ struct ContentView: View {
     var body: some View {
         Text("Hello, World!").onAppear(perform: {
             retriveFavorites()
+            saveNewFavoriteFlight()
         })
     }
 }
@@ -32,4 +33,9 @@ func retriveFavorites() {
             flights.forEach{ print("\($0.destination), \($0.price)€, \($0.temperature)°C")}
         }
     }
+}
+
+func saveNewFavoriteFlight() {
+    let flight = FavoriteFlight(destination: "Tokyo", price: 1200, temperature: 32)
+    CKManager.shared.saveRecord(favoriteFlight: flight)
 }

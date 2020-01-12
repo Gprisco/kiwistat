@@ -29,4 +29,12 @@ class FavoriteFlight {
         
         self.init(destination: d, price: p, temperature: t)
     }
+    
+    func toRecord() -> CKRecord {
+        let record = CKRecord(recordType: "FavoriteFlight")
+        record["destination"] = destination
+        record["price"] = price
+        record["temperature"] = temperature
+        return record
+    }
 }

@@ -17,7 +17,7 @@ class CKManager {
     func fetchRecords (completion: @escaping ([FavoriteFlight], String) -> Void) {
         let query = CKQuery(recordType: "FavoriteFlight", predicate: NSPredicate(value: true))
         
-        database.perform(query, inZoneWith: CKRecordZone(zoneName: "KiwiStatZone").zoneID) { results, error in
+        database.perform(query, inZoneWith: nil) { results, error in
             
             if let _ = error { completion([], "Error"); return }
             
@@ -25,6 +25,13 @@ class CKManager {
                 let flights = results.compactMap{ FavoriteFlight(record: $0) }
                 completion(flights, "")
             }
+        }
+    }
+    
+    func saveRecord(favoriteFlight: FavoriteFlight) {
+        database.save(favoriteFlight.toRecord()) { (record, error) in
+            if let _ = error { print("error while saving") }
+            if let _ = record { print("successfully saved") }
         }
     }
 }
