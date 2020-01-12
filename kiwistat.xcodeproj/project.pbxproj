@@ -15,6 +15,7 @@
 		010CB13523C88C5100A86F26 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 010CB13423C88C5100A86F26 /* Preview Assets.xcassets */; };
 		010CB13823C88C5100A86F26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 010CB13623C88C5100A86F26 /* LaunchScreen.storyboard */; };
 		010CB14223C88C7400A86F26 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 010CB14123C88C7400A86F26 /* CloudKit.framework */; };
+		010CB14523CB76ED00A86F26 /* TequilaModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010CB14423CB76ED00A86F26 /* TequilaModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		010CB13923C88C5100A86F26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		010CB13F23C88C7200A86F26 /* kiwistat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kiwistat.entitlements; sourceTree = "<group>"; };
 		010CB14123C88C7400A86F26 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		010CB14423CB76ED00A86F26 /* TequilaModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TequilaModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 		010CB12723C88C4F00A86F26 /* kiwistat */ = {
 			isa = PBXGroup;
 			children = (
+				010CB14323CB76CF00A86F26 /* Models */,
 				010CB13F23C88C7200A86F26 /* kiwistat.entitlements */,
 				010CB12823C88C4F00A86F26 /* AppDelegate.swift */,
 				010CB12A23C88C4F00A86F26 /* SceneDelegate.swift */,
@@ -90,6 +93,14 @@
 				010CB14123C88C7400A86F26 /* CloudKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		010CB14323CB76CF00A86F26 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				010CB14423CB76ED00A86F26 /* TequilaModels.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,6 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				010CB12E23C88C4F00A86F26 /* kiwistat.xcdatamodeld in Sources */,
+				010CB14523CB76ED00A86F26 /* TequilaModels.swift in Sources */,
 				010CB12923C88C4F00A86F26 /* AppDelegate.swift in Sources */,
 				010CB13023C88C4F00A86F26 /* ContentView.swift in Sources */,
 				010CB12B23C88C4F00A86F26 /* SceneDelegate.swift in Sources */,
