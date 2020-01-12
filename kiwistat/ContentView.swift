@@ -10,12 +10,26 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        Text("Hello, World!").onAppear(perform: {
+            retriveFavorites()
+        })
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+
+func retriveFavorites() {
+    CKManager.shared.fetchRecords { (flights, error) in
+        if !error.isEmpty {
+            print(error)
+        } else {
+            print("Successfully retrived \(flights.count) favorite flights.")
+            flights.forEach{ print("\($0.destination), \($0.price)€, \($0.temperature)°C")}
+        }
     }
 }
