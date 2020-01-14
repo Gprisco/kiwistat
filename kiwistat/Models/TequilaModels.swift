@@ -8,14 +8,14 @@
 
 /*
  USAGE:
-    Tequila.shared contains a method called getFlights, this function needs the following parameters and returns the response from tequila:
-        [1] date_from: Date
-        [2] date_to: Date
-            (Date range for the departure)
-        [3] fly_from: String
-        [4] fly_to: String
-            (Departure - Destination, the string given must be 3 characters long and needs to be the airport code)
-        [5] completion: Callback Function, lets you get the response or the errors raised
+ Tequila.shared contains a method called getFlights, this function needs the following parameters and returns the response from tequila:
+ [1] date_from: Date
+ [2] date_to: Date
+ (Date range for the departure)
+ [3] fly_from: String
+ [4] fly_to: String
+ (Departure - Destination, the string given must be 3 characters long and needs to be the airport code)
+ [5] completion: Callback Function, lets you get the response or the errors raised
  */
 
 import Foundation
