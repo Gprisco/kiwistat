@@ -8,14 +8,73 @@
 
 import SwiftUI
 
-//struct Home: View {
-//    var body: some View {
-//        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-//    }
-//}
-//
-//struct Home_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Home()
-//    }
-//}
+struct Home: View {
+    @State private var from: String = ""
+    @State private var to: String = ""
+    @State private var date: String = ""
+    @State private var traveller: String = ""
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("WikiStat")
+                    .fontWeight(.bold)
+                    .font(.title)
+            }
+            HStack {
+                VStack {
+                    TextField("From", text: $from)
+                        .padding(8)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.gray, lineWidth: 1)
+                    )
+                    
+                    TextField("To", text: $to)
+                        .padding(8)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.gray, lineWidth: 1)
+                    )
+                    
+                }
+                VStack {
+                    Button(action: { }) {
+                        Text("Inverti")
+                        
+                    }
+                    .frame(width: 50, height: 50, alignment: .center)
+                        
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 30)
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
+                }.padding(8)
+            }
+            
+            HStack {
+                VStack {
+                    TextField("TravelleDater", text: $date)
+                        .padding(Edge.Set.horizontal, 8)
+                        .padding(Edge.Set.vertical, 16)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.gray, lineWidth: 1)
+                    )
+                    
+                }
+                VStack {
+                    TextField("Traveller", text: $traveller)
+                        .padding(Edge.Set.horizontal, 8)
+                        .padding(Edge.Set.vertical, 16)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.gray, lineWidth: 1)
+                    )
+                }.frame(width: width(num: 4),alignment: .bottom)
+            }
+            
+        }.padding(16)
+    }
+}
+

@@ -48,7 +48,7 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-func retriveFavorites() {
+func retrieveFavorites() {
     CKManager.shared.fetchRecords { (flights, error) in
         if !error.isEmpty {
             print(error)
