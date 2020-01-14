@@ -20,7 +20,8 @@
 
 import Foundation
 
-struct BagsPrice: Codable {
+struct BagsPrice: Codable, Identifiable {
+    var id = UUID()
     var one: Double?
     var two: Double?
     
@@ -30,7 +31,8 @@ struct BagsPrice: Codable {
     }
 }
 
-struct BagLimit: Codable {
+struct BagLimit: Codable, Identifiable {
+    var id = UUID()
     var hand_width: Int
     var hand_height: Int
     var hand_length: Int
@@ -87,12 +89,9 @@ struct Response: Codable {
 
 class Tequila {
     private let apiKey: String = "5hy76dj3okEW9eP2FDY5QeVCGOGQ9TqZ"
-    private let url: String = "http://kiwicom-prod.apigee.net/v2/search"
+    private let url: String = "https://kiwicom-prod.apigee.net/v2/search"
     
     let session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
-    
-    //Using singleton convention
-    static let shared = Tequila()
     
     init() {}
     

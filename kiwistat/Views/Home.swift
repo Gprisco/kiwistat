@@ -11,70 +11,64 @@ import SwiftUI
 struct Home: View {
     @State private var from: String = ""
     @State private var to: String = ""
-    @State private var date: String = ""
-    @State private var traveller: String = ""
     
     var body: some View {
-        VStack {
-            HStack {
-                Text("WikiStat")
-                    .fontWeight(.bold)
-                    .font(.title)
-            }
-            HStack {
-                VStack {
-                    TextField("From", text: $from)
-                        .padding(8)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.gray, lineWidth: 1)
-                    )
-                    
-                    TextField("To", text: $to)
-                        .padding(8)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.gray, lineWidth: 1)
-                    )
-                    
+        NavigationView {
+            VStack {
+                
+                HStack {
+                    Text("KiwiStat")
+                        .fontWeight(.bold)
+                        .font(.title)
                 }
-                VStack {
-                    Button(action: { }) {
-                        Text("Inverti")
+                
+                HStack {
+                    VStack {
+                        TextField("From", text: $from)
+                            .padding(8)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.gray, lineWidth: 1)
+                        )
+                        
+                        TextField("To", text: $to)
+                            .padding(8)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.gray, lineWidth: 1)
+                        )
                         
                     }
-                    .frame(width: 50, height: 50, alignment: .center)
-                        
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 30)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
-                }.padding(8)
-            }
-            
-            HStack {
-                VStack {
-                    TextField("TravelleDater", text: $date)
-                        .padding(Edge.Set.horizontal, 8)
-                        .padding(Edge.Set.vertical, 16)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.gray, lineWidth: 1)
-                    )
                     
-                }
-                VStack {
-                    TextField("Traveller", text: $traveller)
-                        .padding(Edge.Set.horizontal, 8)
-                        .padding(Edge.Set.vertical, 16)
+                    VStack {
+                        Button(action: {
+                            let temp = self.from
+                            self.from = self.to
+                            self.to = temp
+                        }) {
+                            Text("Inverti")
+                            
+                        }
+                        .frame(width: 50, height: 50, alignment: .center)
+                            
                         .overlay(
-                            RoundedRectangle(cornerRadius: 10)
+                            RoundedRectangle(cornerRadius: 30)
                                 .stroke(Color.gray, lineWidth: 1)
-                    )
-                }.frame(width: width(num: 4),alignment: .bottom)
-            }
+                        )
+                    }.padding(8)
+                }
+                
+                NavigationLink(destination: Results(flights: [], date_from: Date(timeIntervalSinceNow: 3600 * 24), date_to: Date(timeIntervalSinceNow: 3600 * 24 * 15), fly_from: "NAP", fly_to: "PRG")) {
+                    Text("Submit")
+                }
+            }.padding(16)
             
-        }.padding(16)
+        }
     }
 }
 
+struct Home_Previews: PreviewProvider {
+    static var previews: some View {
+        Home()
+    }
+}

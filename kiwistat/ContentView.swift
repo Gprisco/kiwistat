@@ -19,11 +19,7 @@ func height(num: CGFloat) -> CGFloat {
 }
 
 struct ContentView: View {
-    @State private var selection = 1
-    
-    init() {
-        UITabBar.appearance().barTintColor = UIColor.white
-    }
+    @State private var selection = 0 
     
     var body: some View {
         TabView {
@@ -31,13 +27,15 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "1.square.fill")
                     Text("First")
-            }.padding(16)
+            }
+            .tag(0)
             
             Tickets()
                 .tabItem {
                     Image(systemName: "2.square.fill")
                     Text("Second")
             }
+        .tag(1)
         }.accentColor(.green)
     }
 }
