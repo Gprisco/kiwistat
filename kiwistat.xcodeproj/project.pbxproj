@@ -17,6 +17,7 @@
 		010CB14223C88C7400A86F26 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 010CB14123C88C7400A86F26 /* CloudKit.framework */; };
 		010CB14523CB76ED00A86F26 /* TequilaModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010CB14423CB76ED00A86F26 /* TequilaModels.swift */; };
 		01A4B8FA23CDF0910020A107 /* Tickets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4B8F923CDF0910020A107 /* Tickets.swift */; };
+		06E637ED23CF2DE200D1D37C /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E637EC23CF2DE200D1D37C /* WeatherManager.swift */; };
 		81B0FCB123CD121F009DCD14 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B0FCB023CD121F009DCD14 /* Home.swift */; };
 		9414438323CB3A7C0023C515 /* CKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9414438223CB3A7C0023C515 /* CKManager.swift */; };
 		946CB51523CB97E100E9E5C4 /* FavoriteFlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946CB51423CB97E100E9E5C4 /* FavoriteFlight.swift */; };
@@ -36,6 +37,7 @@
 		010CB14123C88C7400A86F26 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		010CB14423CB76ED00A86F26 /* TequilaModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TequilaModels.swift; sourceTree = "<group>"; };
 		01A4B8F923CDF0910020A107 /* Tickets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tickets.swift; sourceTree = "<group>"; };
+		06E637EC23CF2DE200D1D37C /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		81B0FCB023CD121F009DCD14 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		9414438223CB3A7C0023C515 /* CKManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKManager.swift; sourceTree = "<group>"; };
 		946CB51423CB97E100E9E5C4 /* FavoriteFlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteFlight.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			children = (
 				010CB14423CB76ED00A86F26 /* TequilaModels.swift */,
 				946CB51423CB97E100E9E5C4 /* FavoriteFlight.swift */,
+				06E637EC23CF2DE200D1D37C /* WeatherManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 			files = (
 				9414438323CB3A7C0023C515 /* CKManager.swift in Sources */,
 				01A4B8FA23CDF0910020A107 /* Tickets.swift in Sources */,
+				06E637ED23CF2DE200D1D37C /* WeatherManager.swift in Sources */,
 				010CB12E23C88C4F00A86F26 /* kiwistat.xcdatamodeld in Sources */,
 				010CB14523CB76ED00A86F26 /* TequilaModels.swift in Sources */,
 				010CB12923C88C4F00A86F26 /* AppDelegate.swift in Sources */,
