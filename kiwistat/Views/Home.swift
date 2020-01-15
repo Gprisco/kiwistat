@@ -58,7 +58,7 @@ struct Home: View {
                     }.padding(8)
                 }
                 
-                NavigationLink(destination: Results(flights: [], date_from: Date(timeIntervalSinceNow: 3600 * 24), date_to: Date(timeIntervalSinceNow: 3600 * 24 * 15), fly_from: "NAP", fly_to: "PRG")) {
+                NavigationLink(destination: Results(tequilaHandler: Tequila(date_from: Date(), date_to: Date(timeIntervalSinceNow: 3600 * 24 * 15), fly_from: self.from, fly_to: self.to))) {
                     Text("Submit")
                 }
             }.padding(16)

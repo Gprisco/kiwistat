@@ -20,8 +20,7 @@
 
 import Foundation
 
-struct BagsPrice: Codable, Identifiable {
-    var id = UUID()
+struct BagsPrice: Hashable, Codable {
     var one: Double?
     var two: Double?
     
@@ -31,8 +30,7 @@ struct BagsPrice: Codable, Identifiable {
     }
 }
 
-struct BagLimit: Codable, Identifiable {
-    var id = UUID()
+struct BagLimit: Hashable, Codable {
     var hand_width: Int
     var hand_height: Int
     var hand_length: Int
@@ -44,7 +42,7 @@ struct BagLimit: Codable, Identifiable {
     var hold_weight: Int?
 }
 
-struct Route: Codable, Identifiable {
+struct Route: Hashable, Codable, Identifiable {
     var id: String
     var cityTo: String
     var cityFrom: String
@@ -58,7 +56,7 @@ struct Route: Codable, Identifiable {
     var utc_departure: String
 }
 
-struct Flight: Codable, Identifiable {
+struct Flight: Hashable, Codable, Identifiable {
     var id: String
     var bags_price: BagsPrice
     var baglimit: BagLimit
@@ -69,34 +67,43 @@ struct Flight: Codable, Identifiable {
     var has_airport_change: Bool
     var routes: [[String]]
     var deep_link: String
+    var cityFrom: String
+    var cityTo: String
 }
 
-struct Fault: Codable {
+struct Fault: Hashable, Codable {
     var faultstring: String
 }
 
-struct ErrorMessage: Codable {
+struct ErrorMessage: Hashable, Codable {
     var param: String
     var errors: [String]
 }
 
-struct Response: Codable {
+struct Response: Hashable, Codable {
     var search_id: String?
     var data: [Flight]?
     var fault: Fault?
     var message: [ErrorMessage]?
 }
 
-class Tequila {
+class Tequila: ObservableObject {
+    @Published var response = Response()
+    @Published var cityFrom: String = ""
+    @Published var cityTo: String = ""
+    
     private let apiKey: String = "5hy76dj3okEW9eP2FDY5QeVCGOGQ9TqZ"
     private let url: String = "https://kiwicom-prod.apigee.net/v2/search"
     
     let session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
     
-    init() {}
+    init(date_from: Date, date_to: Date, fly_from: String, fly_to: String) {
+        self.buildRequest(date_from, date_to, fly_from, fly_to)
+        self.cityFrom = fly_from
+        self.cityTo = fly_to
+    }
     
-    func getFlights(date_from: Date, date_to: Date, fly_from: String, fly_to: String, completion: @escaping (_ flights: Response?, _ error: Any?) -> Void) {
-        
+    func buildRequest(_ date_from: Date, _ date_to: Date, _ fly_from: String, _ fly_to: String) {
         //Conversion from Date to String (format: dd/MM/yyyy)
         let df = DateFormatter()
         df.dateFormat = "dd/MM/yyyy"
@@ -116,7 +123,13 @@ class Tequila {
         request.httpMethod = "GET"
         request.setValue(self.apiKey, forHTTPHeaderField: "apikey")
         
-        let dataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
+        self.loadJson(request: request, completion: { response in
+            self.response = response
+        })
+    }
+    
+    func loadJson(request: URLRequest, completion: @escaping (_ flights: Response) -> Void) {
+        session.dataTask(with: request, completionHandler: { (data, response, error) in
             
             //Decoding the response
             guard let jsonData = data else {
@@ -128,17 +141,12 @@ class Tequila {
             do {
                 let flights = try decoder.decode(Response.self, from: jsonData)
                 
-                if flights.search_id != nil {
-                    completion(flights, nil)
-                } else {
-                    completion(nil, flights.fault ?? flights.message)
-                }
+                completion(flights)
             }
             catch let error {
-                completion(nil, error as NSError)
+                fatalError(error.localizedDescription)
             }
-        })
-        
-        dataTask.resume()
+        }
+        ).resume()
     }
 }
