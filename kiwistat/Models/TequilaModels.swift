@@ -125,7 +125,7 @@ class Tequila: ObservableObject {
         self.flyTo = fly_to
     }
     
-    func fetchFlights() {
+    func fetchFlights(completion: @escaping (FetchedData) -> Void) {
         //Conversion from Date to String (format: dd/MM/yyyy)
         let df = DateFormatter()
         df.dateFormat = "dd/MM/yyyy"
@@ -155,7 +155,7 @@ class Tequila: ObservableObject {
                         countryID: flight.countryTo.code,
                         completion: { weatherData in
                             DispatchQueue.main.async {
-                                self.response.append(FetchedData(flight: flight, weather: weatherData))
+                                completion(FetchedData(flight: flight, weather: weatherData))
                                 self.lastWeatherLocation = flight.cityTo
                                 self.lastWeatherData = weatherData
                             }
@@ -163,7 +163,7 @@ class Tequila: ObservableObject {
                     )
                 }
                 else {
-                    self.response.append(FetchedData(flight: flight, weather: self.lastWeatherData))
+                    completion(FetchedData(flight: flight, weather: self.lastWeatherData))
                 }
             }
         })

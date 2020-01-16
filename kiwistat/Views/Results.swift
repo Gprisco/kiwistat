@@ -43,7 +43,9 @@ struct Results: View {
                         self.tequilaHandler.dateFrom.addTimeInterval(3600 * 24)
                         self.tequilaHandler.dateTo.addTimeInterval(3600 * 24)
                         
-                        self.tequilaHandler.fetchFlights()
+                        self.tequilaHandler.fetchFlights(completion: { fetchedData in
+                            self.tequilaHandler.response.append(fetchedData)
+                        })
                     }) {
                         Text("Next Page")
                     }
@@ -55,7 +57,9 @@ struct Results: View {
             }
         }
         .onAppear(perform: {
-            self.tequilaHandler.fetchFlights()
+            self.tequilaHandler.fetchFlights(completion: { fetchedData in
+                self.tequilaHandler.response.append(fetchedData)
+            })
         })
             .onDisappear(perform: { self.tequilaHandler.response = [FetchedData]() })
     }
