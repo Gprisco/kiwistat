@@ -31,7 +31,7 @@ class WeatherManager {
     static let shared = WeatherManager()
     init() {}
     
-    let weatherURL = "https://api.weatherbit.io/v2.0/forecast/daily?key=dec1cfb3d836491c8d6228b1c034b5fc"
+    let weatherURL = "https://api.weatherbit.io/v2.0/forecast/daily?key=89bbb73a0dac472482c3b312a4cea068"
     
     func fetchWeather(cityName: String, countryID: String, completion: @escaping ([WeatherData]) -> Void) {
         let urlString = "\(weatherURL)&city=\(cityName)&country=\(countryID)"

@@ -17,7 +17,7 @@ struct Results: View {
             if !(self.tequilaHandler.response.isEmpty) {
                 VStack {
                     List() {
-                        ForEach(self.tequilaHandler.response.sorted(by: { ($0.weather[0].clouds / $0.flight.price) < ($1.weather[0].clouds / $1.flight.price) }), id: \.id) { data in
+                        ForEach(self.tequilaHandler.response.sorted(by: { ($0.weather[0].clouds * $0.flight.price) < ($1.weather[0].clouds * $1.flight.price) }), id: \.id) { data in
                             NavigationLink(destination: FlightDetails(details: data)) {
                                 VStack {
                                     HStack {
@@ -56,7 +56,7 @@ struct Results: View {
                     Button(action: {
                         self.tequilaHandler.dateFrom.addTimeInterval(3600 * 24)
                         self.tequilaHandler.dateTo.addTimeInterval(3600 * 24)
-
+                        
                         self.tequilaHandler.fetchFlights(completion: { fetchedData in
                             self.tequilaHandler.response.append(fetchedData)
                         })

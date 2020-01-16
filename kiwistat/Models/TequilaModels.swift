@@ -153,7 +153,7 @@ class Tequila: ObservableObject {
                 let isoDate = flight.local_arrival.iso8601Date!
                 let date = df.string(from: isoDate)
                 
-                if !self.lastWeatherLocations.contains(flight.cityTo) && date != self.lastDate {
+                if !self.lastWeatherLocations.contains(flight.cityTo) || date != self.lastDate {
                     WeatherManager.shared.fetchWeather(
                         cityName: flight.cityTo,
                         countryID: flight.countryTo.code,

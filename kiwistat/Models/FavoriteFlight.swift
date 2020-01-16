@@ -9,18 +9,21 @@
 import UIKit
 import CloudKit
 
-class FavoriteFlight {
+class FavoriteFlight: Identifiable {
     
+    var id = UUID()
     var link: String
     var destination: String
     var departure: String
     var iconName: String
+    var price: Int
     
-    init(link: String, destination: String, departure: String, iconName: String) {
+    init(link: String, destination: String, departure: String, iconName: String, price: Int) {
         self.destination = destination
         self.link = link
         self.departure = departure
         self.iconName = iconName
+        self.price = price
     }
     
     convenience init?(record: CKRecord) {
@@ -28,10 +31,11 @@ class FavoriteFlight {
             let destination = record["destination"] as? String,
             let link = record["link"] as? String,
             let departure = record["departure"] as? String,
-            let iconName = record["iconName"] as? String
+            let iconName = record["iconName"] as? String,
+            let price = record["price"] as? Int
             else { return nil }
         
-        self.init(link: link, destination: destination, departure: departure, iconName: iconName)
+        self.init(link: link, destination: destination, departure: departure, iconName: iconName, price: price)
     }
     
     func toRecord() -> CKRecord {
@@ -40,6 +44,7 @@ class FavoriteFlight {
         record["link"] = link
         record["departure"] = departure
         record["iconName"] = iconName
+        record["price"] = price
         return record
     }
 }

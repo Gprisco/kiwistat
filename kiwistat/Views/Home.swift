@@ -16,53 +16,45 @@ struct Home: View {
     var body: some View {
         NavigationView {
             VStack {
-                
-                HStack {
-                    Text("KiwiStat")
-                        .fontWeight(.bold)
-                        .font(.title)
-                }
-                
                 HStack {
                     VStack {
-                        TextField("From", text: $from)
-                            .padding(8)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray, lineWidth: 1)
-                        )
-                        
-                        TextField("To", text: $to)
-                            .padding(8)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray, lineWidth: 1)
-                        )                        
+                        Section {
+                            TextField("From", text: $from)
+                                .padding(8)
+                            
+                            TextField("To", text: $to)
+                                .padding(8)
+                        }
                     }
                     
-                    VStack {
-                        Button(action: {
-                            let temp = self.from
-                            self.from = self.to
-                            self.to = temp
-                        }) {
-                            Text("Inverti")
-                            
-                        }
-                        .frame(width: 50, height: 50, alignment: .center)
-                            
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 30)
-                                .stroke(Color.gray, lineWidth: 1)
-                        )
-                    }.padding(8)
+                    Button(action: {
+                        let temp = self.from
+                        self.from = self.to
+                        self.to = temp
+                    }) {
+                        Text("Inverti")
+                        
+                    }
+                    .frame(width: 50, height: 50, alignment: .center)
+                    .padding(3)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 100, style: .circular)
+                            .stroke(lineWidth: 1.0)
+                    )
                 }
+                .padding(15)
                 
-                NavigationLink(destination: Results(tequilaHandler: Tequila(date_from: Date(timeIntervalSinceNow: 3600 * 24), date_to: Date(timeIntervalSinceNow: 3600 * 24), fly_from: self.from, fly_to: self.to))) {
+                DatePicker(selection: self.$date, in: Date()..., displayedComponents: .date, label: { Text("Departure") })
+                    .padding(8)
+                    .labelsHidden()
+                
+                NavigationLink(destination: Results(tequilaHandler: Tequila(date_from: self.date, date_to: self.date, fly_from: self.from, fly_to: self.to))) {
                     Text("Submit")
                 }
-            }.padding(16)
-            
+                .padding(8)
+            }
+            .navigationBarTitle(Text("KiwiStat"))
+            .background(Color.clear)
         }
     }
 }

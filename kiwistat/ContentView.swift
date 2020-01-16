@@ -10,14 +10,6 @@
 
 import SwiftUI
 
-func width(num: CGFloat) -> CGFloat {
-    return (UIScreen.main.bounds.width / 12) * num
-}
-
-func height(num: CGFloat) -> CGFloat {
-    return (UIScreen.main.bounds.height / 12) * num
-}
-
 struct ContentView: View {
     @State private var selection = 0 
     
@@ -25,24 +17,19 @@ struct ContentView: View {
         TabView {
             Home()
                 .tabItem {
-                    Image(systemName: "1.square.fill")
-                    Text("First")
+                    Image(systemName: "magnifyingglass")
+                    Text("Search")
             }
             .tag(0)
             
             Tickets()
                 .tabItem {
-                    Image(systemName: "2.square.fill")
-                    Text("Second")
+                    Image(systemName: "bookmark")
+                    Text("Bookmarks")
             }
-        .tag(1)
-        }.accentColor(.green).onAppear{
-            // uncomment following to save
-//            saveNewFavoriteFlight(fetchedData: <#T##FetchedData#>)
-            retrieveFavorites { flights in
-                print("__Fetched \(flights.count) flights.")
-            }
+            .tag(1)
         }
+        .accentColor(.green)
     }
 }
 
@@ -66,6 +53,6 @@ func retrieveFavorites(completion: @escaping ([FavoriteFlight]) -> Void) {
 
 func saveNewFavoriteFlight(fetchedData: FetchedData) {
     let f = fetchedData
-    let flight = FavoriteFlight(link: f.flight.deep_link, destination: f.flight.countryTo.code, departure: f.flight.local_departure, iconName: f.weather.first?.weather.icon ?? "no icon")
+    let flight = FavoriteFlight(link: f.flight.deep_link, destination: f.flight.countryTo.code, departure: f.flight.local_departure, iconName: f.weather.first?.weather.icon ?? "no icon", price: f.flight.price)
     CKManager.shared.saveRecord(favoriteFlight: flight)
 }
