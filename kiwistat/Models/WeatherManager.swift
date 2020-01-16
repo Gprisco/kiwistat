@@ -12,7 +12,8 @@ struct WeatherBit: Codable{
     let data: [WeatherData]
 }
 
-struct WeatherData: Codable {
+struct WeatherData: Codable, Identifiable {
+    let id = UUID()
     let temp: Double
     let precip: Double
     let clouds: Int
@@ -30,7 +31,7 @@ class WeatherManager {
     static let shared = WeatherManager()
     init() {}
     
-    let weatherURL = "https://api.weatherbit.io/v2.0/forecast/daily?key=15c43019b5f14873b551f42273ad416c"
+    let weatherURL = "https://api.weatherbit.io/v2.0/forecast/daily?key=dec1cfb3d836491c8d6228b1c034b5fc"
     
     func fetchWeather(cityName: String, countryID: String, completion: @escaping ([WeatherData]) -> Void) {
         let urlString = "\(weatherURL)&city=\(cityName)&country=\(countryID)"

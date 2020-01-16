@@ -110,8 +110,9 @@ class Tequila: ObservableObject {
     var dateFrom: Date
     var dateTo: Date
     
-    var lastWeatherLocation: String = ""
+    var lastWeatherLocations: [String] = []
     var lastWeatherData = [WeatherData]()
+    var lastDate: String = ""
     
     private let apiKey: String = "5hy76dj3okEW9eP2FDY5QeVCGOGQ9TqZ"
     private let url: String = "https://kiwicom-prod.apigee.net/v2/search"
@@ -146,18 +147,25 @@ class Tequila: ObservableObject {
         request.setValue(self.apiKey, forHTTPHeaderField: "apikey")
         
         self.loadJson(request: request, completion: { response in
-            df.dateFormat = ""
+            df.dateFormat = "yyyy-MM-dd"
             
             for flight in response.data! {
-                if flight.cityTo != self.lastWeatherLocation {
+                let isoDate = flight.local_arrival.iso8601Date!
+                let date = df.string(from: isoDate)
+                
+                if !self.lastWeatherLocations.contains(flight.cityTo) && date != self.lastDate {
                     WeatherManager.shared.fetchWeather(
                         cityName: flight.cityTo,
                         countryID: flight.countryTo.code,
                         completion: { weatherData in
+                            let firstUsefulIndex = weatherData.firstIndex(where: { $0.datetime == date })!
+                            let weather = weatherData.suffix(weatherData.count - firstUsefulIndex) as [WeatherData]
+                            
                             DispatchQueue.main.async {
-                                completion(FetchedData(flight: flight, weather: weatherData))
-                                self.lastWeatherLocation = flight.cityTo
-                                self.lastWeatherData = weatherData
+                                completion(FetchedData(flight: flight, weather: weather))
+                                self.lastWeatherLocations.append(flight.cityTo)
+                                self.lastWeatherData = weather
+                                self.lastDate = weather[0].datetime
                             }
                         }
                     )

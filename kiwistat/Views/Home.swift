@@ -37,7 +37,7 @@ struct Home: View {
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.gray, lineWidth: 1)
-                        )
+                        )                        
                     }
                     
                     VStack {
@@ -58,7 +58,7 @@ struct Home: View {
                     }.padding(8)
                 }
                 
-                NavigationLink(destination: Results(tequilaHandler: Tequila(date_from: Date(), date_to: Date(), fly_from: self.from, fly_to: self.to))) {
+                NavigationLink(destination: Results(tequilaHandler: Tequila(date_from: Date(timeIntervalSinceNow: 3600 * 24), date_to: Date(timeIntervalSinceNow: 3600 * 24), fly_from: self.from, fly_to: self.to))) {
                     Text("Submit")
                 }
             }.padding(16)
