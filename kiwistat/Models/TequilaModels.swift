@@ -20,28 +20,6 @@
 
 import Foundation
 
-struct BagsPrice: Hashable, Codable {
-    var one: Double?
-    var two: Double?
-    
-    private enum CodingKeys: String, CodingKey {
-        case one = "1"
-        case two = "2"
-    }
-}
-
-struct BagLimit: Hashable, Codable {
-    var hand_width: Int
-    var hand_height: Int
-    var hand_length: Int
-    var hand_weight: Int
-    var hold_width: Int?
-    var hold_height: Int?
-    var hold_length: Int?
-    var hold_dimensions_sum: Int?
-    var hold_weight: Int?
-}
-
 struct Route: Hashable, Codable, Identifiable {
     var id: String
     var cityTo: String
@@ -62,8 +40,6 @@ struct CountryTo: Hashable, Codable {
 
 struct Flight: Hashable, Codable, Identifiable {
     var id: String
-    var bags_price: BagsPrice
-    var baglimit: BagLimit
     var price: Int
     var route: [Route]
     var airlines: [String]
@@ -149,29 +125,31 @@ class Tequila: ObservableObject {
         self.loadJson(request: request, completion: { response in
             df.dateFormat = "yyyy-MM-dd"
             
-            for flight in response.data! {
-                let isoDate = flight.local_arrival.iso8601Date!
-                let date = df.string(from: isoDate)
-                
-                if !self.lastWeatherLocations.contains(flight.cityTo) || date != self.lastDate {
-                    WeatherManager.shared.fetchWeather(
-                        cityName: flight.cityTo,
-                        countryID: flight.countryTo.code,
-                        completion: { weatherData in
-                            let firstUsefulIndex = weatherData.firstIndex(where: { $0.datetime == date })!
-                            let weather = weatherData.suffix(weatherData.count - firstUsefulIndex) as [WeatherData]
-                            
-                            DispatchQueue.main.async {
-                                completion(FetchedData(flight: flight, weather: weather))
-                                self.lastWeatherLocations.append(flight.cityTo)
-                                self.lastWeatherData = weather
-                                self.lastDate = weather[0].datetime
+            if response.data != nil {
+                for flight in response.data! {
+                    let isoDate = flight.local_arrival.iso8601Date!
+                    let date = df.string(from: isoDate)
+                    
+                    if !self.lastWeatherLocations.contains(flight.cityTo) || date != self.lastDate {
+                        WeatherManager.shared.fetchWeather(
+                            cityName: flight.cityTo,
+                            countryID: flight.countryTo.code,
+                            completion: { weatherData in
+                                let firstUsefulIndex = weatherData.firstIndex(where: { $0.datetime == date })!
+                                let weather = weatherData.suffix(weatherData.count - firstUsefulIndex) as [WeatherData]
+                                
+                                DispatchQueue.main.async {
+                                    completion(FetchedData(flight: flight, weather: weather))
+                                    self.lastWeatherLocations.append(flight.cityTo)
+                                    self.lastWeatherData = weather
+                                    self.lastDate = weather[0].datetime
+                                }
                             }
-                        }
-                    )
-                }
-                else {
-                    completion(FetchedData(flight: flight, weather: self.lastWeatherData))
+                        )
+                    }
+                    else {
+                        completion(FetchedData(flight: flight, weather: self.lastWeatherData))
+                    }
                 }
             }
         })
