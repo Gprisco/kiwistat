@@ -8,10 +8,26 @@
 
 import SwiftUI
 
+struct FormData {
+    var from: String
+    var to: String
+    var dateFrom: String
+    var dateTo: String
+    var travellers: Int
+}
+
 struct Home: View {
-    @State private var from: String = ""
-    @State private var to: String = ""
-    
+    @State var formData = FormData(
+        from: "",
+        to: "",
+        dateFrom: "",
+        dateTo: "",
+        travellers: 0
+    )
+    @State var showDatePicker = false
+    @State var showSecondDatePicker = false
+    @State var date = Date()
+  
     var body: some View {
         NavigationView {
             VStack {
@@ -24,14 +40,14 @@ struct Home: View {
                 
                 HStack {
                     VStack {
-                        TextField("From", text: $from)
+                        TextField("From", text: $formData.from)
                             .padding(8)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.gray, lineWidth: 1)
                         )
                         
-                        TextField("To", text: $to)
+                        TextField("To", text: $formData.to)
                             .padding(8)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
@@ -42,34 +58,63 @@ struct Home: View {
                     
                     VStack {
                         Button(action: {
-                            let temp = self.from
-                            self.from = self.to
-                            self.to = temp
-                            
-                            // MARK: - Temporary
-                            print("iataCodes")
-                            let iataCodes = IATACodes()
-                            print("iataCodes")
-                            let body = RequestAutocomplete(term: "Napo")
-                            iataCodes.autocomplete(body)
+                            let temp = self.formData.from
+                            self.formData.from = self.formData.to
+                            self.formData.to = temp
                             
                         }) {
                             Text("Inverti")
-                            
                         }
                         .frame(width: 50, height: 50, alignment: .center)
-                            
                         .overlay(
                             RoundedRectangle(cornerRadius: 30)
                                 .stroke(Color.gray, lineWidth: 1)
                         )
                     }.padding(8)
+                    
+                  
                 }
                 
-                NavigationLink(destination: Results(tequilaHandler: Tequila(date_from: Date(), date_to: Date(timeIntervalSinceNow: 3600 * 24 * 15), fly_from: self.from, fly_to: self.to))) {
+                HStack {
+                  TextField(
+                        "Date",
+                        text: $formData.dateFrom,
+                        onEditingChanged: { (editting) in
+                            self.showDatePicker = editting
+                        }
+                    ).padding(16)
+                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+
+                }
+              
+              VStack {
+                if showDatePicker == true {
+                  DatePicker("", selection: $date, in: Date()..., displayedComponents: .date)
+                    .labelsHidden()
+                  
+                  Button("Forward") {
+                    self.showSecondDatePicker = true
+                  }
+                }
+
+                if showSecondDatePicker == true {
+                    DatePicker("SEcondo", selection: $date, in: Date()..., displayedComponents: .date)
+                }
+
+              }.frame(width: width(num: 12), alignment: .center)
+
+                
+                NavigationLink(
+                    destination: Results(
+                        tequilaHandler: Tequila(
+                            date_from: Date(),
+                            date_to: Date(timeIntervalSinceNow: 3600 * 24 * 15),
+                            fly_from: self.formData.from,
+                            fly_to: self.formData.to
+                        )
+                    )
+                ) {
                     Text("Submit")
-                    
-                    
                 }
             }.padding(16)
             
