@@ -45,6 +45,14 @@ struct Home: View {
                             let temp = self.from
                             self.from = self.to
                             self.to = temp
+                            
+                            // MARK: - Temporary
+                            print("iataCodes")
+                            let iataCodes = IATACodes()
+                            print("iataCodes")
+                            let body = RequestAutocomplete(term: "Napo")
+                            iataCodes.autocomplete(body)
+                            
                         }) {
                             Text("Inverti")
                             
@@ -60,6 +68,8 @@ struct Home: View {
                 
                 NavigationLink(destination: Results(tequilaHandler: Tequila(date_from: Date(), date_to: Date(timeIntervalSinceNow: 3600 * 24 * 15), fly_from: self.from, fly_to: self.to))) {
                     Text("Submit")
+                    
+                    
                 }
             }.padding(16)
             
