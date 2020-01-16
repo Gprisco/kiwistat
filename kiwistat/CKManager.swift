@@ -15,7 +15,7 @@ class CKManager {
     
     /// Escaping flights and error string.
     func fetchRecords (completion: @escaping ([FavoriteFlight], String) -> Void) {
-        let query = CKQuery(recordType: "FavoriteFlight", predicate: NSPredicate(value: true))
+        let query = CKQuery(recordType: "NewFavoriteFlight", predicate: NSPredicate(value: true))
         
         database.perform(query, inZoneWith: nil) { results, error in
             

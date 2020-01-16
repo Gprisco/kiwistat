@@ -10,31 +10,36 @@ import UIKit
 import CloudKit
 
 class FavoriteFlight {
-    var destination: String
-    var price: Int
-    var temperature: Double
     
-    init(destination: String, price: Int, temperature: Double) {
+    var link: String
+    var destination: String
+    var departure: String
+    var iconName: String
+    
+    init(link: String, destination: String, departure: String, iconName: String) {
         self.destination = destination
-        self.price = price
-        self.temperature = temperature
+        self.link = link
+        self.departure = departure
+        self.iconName = iconName
     }
     
     convenience init?(record: CKRecord) {
         guard
-            let d = record["destination"] as? String,
-            let p = record["price"] as? Int,
-            let t = record["temperature"] as? Double
+            let destination = record["destination"] as? String,
+            let link = record["link"] as? String,
+            let departure = record["departure"] as? String,
+            let iconName = record["iconName"] as? String
             else { return nil }
         
-        self.init(destination: d, price: p, temperature: t)
+        self.init(link: link, destination: destination, departure: departure, iconName: iconName)
     }
     
     func toRecord() -> CKRecord {
-        let record = CKRecord(recordType: "FavoriteFlight")
+        let record = CKRecord(recordType: "NewFavoriteFlight")
         record["destination"] = destination
-        record["price"] = price
-        record["temperature"] = temperature
+        record["link"] = link
+        record["departure"] = departure
+        record["iconName"] = iconName
         return record
     }
 }

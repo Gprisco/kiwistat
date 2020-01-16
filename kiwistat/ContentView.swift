@@ -36,7 +36,13 @@ struct ContentView: View {
                     Text("Second")
             }
         .tag(1)
-        }.accentColor(.green)
+        }.accentColor(.green).onAppear{
+            // uncomment following to save
+//            saveNewFavoriteFlight(fetchedData: <#T##FetchedData#>)
+            retrieveFavorites { flights in
+                print("__Fetched \(flights.count) flights.")
+            }
+        }
     }
 }
 
@@ -46,18 +52,20 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-func retrieveFavorites() {
+func retrieveFavorites(completion: @escaping ([FavoriteFlight]) -> Void) {
     CKManager.shared.fetchRecords { (flights, error) in
         if !error.isEmpty {
             print(error)
         } else {
             print("Successfully retrived \(flights.count) favorite flights.")
-            flights.forEach{ print("\($0.destination), \($0.price)€, \($0.temperature)°C")}
+            flights.forEach{ print("__ \($0.destination), \($0.departure), \($0.link), \($0.iconName)")}
+            completion(flights)
         }
     }
 }
 
-func saveNewFavoriteFlight() {
-    let flight = FavoriteFlight(destination: "Tokyo", price: 1200, temperature: 32)
+func saveNewFavoriteFlight(fetchedData: FetchedData) {
+    let f = fetchedData
+    let flight = FavoriteFlight(link: f.flight.deep_link, destination: f.flight.countryTo.code, departure: f.flight.local_departure, iconName: f.weather.first?.weather.icon ?? "no icon")
     CKManager.shared.saveRecord(favoriteFlight: flight)
 }
