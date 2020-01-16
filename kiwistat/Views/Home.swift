@@ -11,6 +11,7 @@ import SwiftUI
 struct Home: View {
     @State private var from: String = ""
     @State private var to: String = ""
+    @State private var date = Date()
     
     var body: some View {
         NavigationView {
@@ -37,7 +38,6 @@ struct Home: View {
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.gray, lineWidth: 1)
                         )
-                        
                     }
                     
                     VStack {
@@ -58,7 +58,7 @@ struct Home: View {
                     }.padding(8)
                 }
                 
-                NavigationLink(destination: Results(tequilaHandler: Tequila(date_from: Date(), date_to: Date(timeIntervalSinceNow: 3600 * 24 * 15), fly_from: self.from, fly_to: self.to))) {
+                NavigationLink(destination: Results(tequilaHandler: Tequila(date_from: Date(), date_to: Date(), fly_from: self.from, fly_to: self.to))) {
                     Text("Submit")
                 }
             }.padding(16)

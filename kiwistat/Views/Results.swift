@@ -10,36 +10,59 @@ import SwiftUI
 
 struct Results: View {
     @ObservedObject var tequilaHandler: Tequila
+    var date = Date()
     
     var body: some View {
         NavigationView {
-            if(self.tequilaHandler.response.data != nil) {
-                List(self.tequilaHandler.response.data!) { flight in
-                    VStack {
-                        Text(flight.airlines[0])
-                            ForEach(flight.route) { route in
+            if !(self.tequilaHandler.response.isEmpty) {
+                VStack {
+                    List(self.tequilaHandler.response) { data in
+                        VStack {
+                            HStack {
+                                Text("✈ \(data.flight.airlines[0])")
+                                Spacer()
+                                URLImage(url: "https://www.weatherbit.io/static/img/icons/\(data.weather[0].weather.icon).png")
+                                Spacer()
+                                Text("€ \(data.flight.price)")
+                            }.padding(15)
+                            
+                            ForEach(data.flight.route) { route in
                                 HStack {
                                     Text(route.cityFrom)
                                     Spacer()
-                                    Image(systemName: "arrow.right")
+                                    Text("✈")
                                     Spacer()
                                     Text(route.cityTo)
                                 }.padding(15)
                             }
-                        
+                        }
                     }
+                    .navigationBarTitle(Text("Search Result"))
+                    
+                    Button(action: {
+                        self.tequilaHandler.dateFrom.addTimeInterval(3600 * 24)
+                        self.tequilaHandler.dateTo.addTimeInterval(3600 * 24)
+                        
+                        self.tequilaHandler.fetchFlights()
+                    }) {
+                        Text("Next Page")
+                    }
+                    .padding(15)
                 }
-                .navigationBarTitle("Search Result")
             }
             else {
                 Text("No data")
             }
         }
+        .onAppear(perform: {
+            self.tequilaHandler.fetchFlights()
+        })
+            .onDisappear(perform: { self.tequilaHandler.response = [FetchedData]() })
     }
 }
 
 struct Results_Previews: PreviewProvider {
     static var previews: some View {
-        Results(tequilaHandler: Tequila(date_from: Date(), date_to: Date(timeIntervalSinceNow: 3600 * 24 * 15), fly_from: "NAP", fly_to: "PRG"))
+        Results(tequilaHandler: Tequila(date_from: Date(), date_to: Date(), fly_from: "NAP", fly_to: "PRG"))
     }
 }

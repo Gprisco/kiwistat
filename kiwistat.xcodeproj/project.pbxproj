@@ -19,6 +19,8 @@
 		01A4B8FA23CDF0910020A107 /* Tickets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4B8F923CDF0910020A107 /* Tickets.swift */; };
 		01A4B8FC23CDF2530020A107 /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4B8FB23CDF2530020A107 /* Results.swift */; };
 		01A4B8FE23CF32DC0020A107 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4B8FD23CF32DC0020A107 /* WeatherManager.swift */; };
+		01B9C1D523CF60D400EE79A8 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B9C1D423CF60D400EE79A8 /* ImageLoader.swift */; };
+		01B9C1D723CF63D300EE79A8 /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B9C1D623CF63D300EE79A8 /* URLImage.swift */; };
 		81B0FCB123CD121F009DCD14 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B0FCB023CD121F009DCD14 /* Home.swift */; };
 		9414438323CB3A7C0023C515 /* CKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9414438223CB3A7C0023C515 /* CKManager.swift */; };
 		946CB51523CB97E100E9E5C4 /* FavoriteFlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946CB51423CB97E100E9E5C4 /* FavoriteFlight.swift */; };
@@ -40,6 +42,8 @@
 		01A4B8F923CDF0910020A107 /* Tickets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tickets.swift; sourceTree = "<group>"; };
 		01A4B8FB23CDF2530020A107 /* Results.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Results.swift; sourceTree = "<group>"; };
 		01A4B8FD23CF32DC0020A107 /* WeatherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
+		01B9C1D423CF60D400EE79A8 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		01B9C1D623CF63D300EE79A8 /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
 		81B0FCB023CD121F009DCD14 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		9414438223CB3A7C0023C515 /* CKManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKManager.swift; sourceTree = "<group>"; };
 		946CB51423CB97E100E9E5C4 /* FavoriteFlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteFlight.swift; sourceTree = "<group>"; };
@@ -83,6 +87,7 @@
 				010CB12A23C88C4F00A86F26 /* SceneDelegate.swift */,
 				81B0FCB223CD1224009DCD14 /* Views */,
 				010CB12F23C88C4F00A86F26 /* ContentView.swift */,
+				01B9C1D423CF60D400EE79A8 /* ImageLoader.swift */,
 				9414438223CB3A7C0023C515 /* CKManager.swift */,
 				010CB13123C88C5100A86F26 /* Assets.xcassets */,
 				010CB13623C88C5100A86F26 /* LaunchScreen.storyboard */,
@@ -125,6 +130,7 @@
 				81B0FCB023CD121F009DCD14 /* Home.swift */,
 				01A4B8F923CDF0910020A107 /* Tickets.swift */,
 				01A4B8FB23CDF2530020A107 /* Results.swift */,
+				01B9C1D623CF63D300EE79A8 /* URLImage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -205,12 +211,14 @@
 				010CB12E23C88C4F00A86F26 /* kiwistat.xcdatamodeld in Sources */,
 				010CB14523CB76ED00A86F26 /* TequilaModels.swift in Sources */,
 				01A4B8FC23CDF2530020A107 /* Results.swift in Sources */,
+				01B9C1D723CF63D300EE79A8 /* URLImage.swift in Sources */,
 				010CB12923C88C4F00A86F26 /* AppDelegate.swift in Sources */,
 				01A4B8FE23CF32DC0020A107 /* WeatherManager.swift in Sources */,
 				946CB51523CB97E100E9E5C4 /* FavoriteFlight.swift in Sources */,
 				010CB13023C88C4F00A86F26 /* ContentView.swift in Sources */,
 				81B0FCB123CD121F009DCD14 /* Home.swift in Sources */,
 				010CB12B23C88C4F00A86F26 /* SceneDelegate.swift in Sources */,
+				01B9C1D523CF60D400EE79A8 /* ImageLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -56,6 +56,10 @@ struct Route: Hashable, Codable, Identifiable {
     var utc_departure: String
 }
 
+struct CountryTo: Hashable, Codable {
+    var code: String
+}
+
 struct Flight: Hashable, Codable, Identifiable {
     var id: String
     var bags_price: BagsPrice
@@ -69,6 +73,11 @@ struct Flight: Hashable, Codable, Identifiable {
     var deep_link: String
     var cityFrom: String
     var cityTo: String
+    var countryTo: CountryTo
+    var local_arrival: String
+    var utc_arrival: String
+    var local_departure: String
+    var utc_departure: String
 }
 
 struct Fault: Hashable, Codable {
@@ -87,10 +96,22 @@ struct Response: Hashable, Codable {
     var message: [ErrorMessage]?
 }
 
+struct FetchedData: Codable, Identifiable {
+    var id = UUID()
+    var flight: Flight
+    var weather: [WeatherData]
+}
+
 class Tequila: ObservableObject {
-    @Published var response = Response()
-    @Published var cityFrom: String = ""
-    @Published var cityTo: String = ""
+    @Published var response = [FetchedData]()
+    
+    var flyFrom: String = ""
+    var flyTo: String = ""
+    var dateFrom: Date
+    var dateTo: Date
+    
+    var lastWeatherLocation: String = ""
+    var lastWeatherData = [WeatherData]()
     
     private let apiKey: String = "5hy76dj3okEW9eP2FDY5QeVCGOGQ9TqZ"
     private let url: String = "https://kiwicom-prod.apigee.net/v2/search"
@@ -98,21 +119,22 @@ class Tequila: ObservableObject {
     let session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
     
     init(date_from: Date, date_to: Date, fly_from: String, fly_to: String) {
-        self.buildRequest(date_from, date_to, fly_from, fly_to)
-        self.cityFrom = fly_from
-        self.cityTo = fly_to
+        self.dateFrom = date_from
+        self.dateTo = date_to
+        self.flyFrom = fly_from
+        self.flyTo = fly_to
     }
     
-    func buildRequest(_ date_from: Date, _ date_to: Date, _ fly_from: String, _ fly_to: String) {
+    func fetchFlights() {
         //Conversion from Date to String (format: dd/MM/yyyy)
         let df = DateFormatter()
         df.dateFormat = "dd/MM/yyyy"
         
-        let date_from_string = df.string(from: date_from)
-        let date_to_string = df.string(from: date_to)
+        let date_from_string = df.string(from: self.dateFrom)
+        let date_to_string = df.string(from: self.dateTo)
         
         //Building a safe endpoint
-        let endpointUrl = "\(self.url)?fly_from=\(fly_from)&fly_to=\(fly_to)&date_from=\(date_from_string)&date_to=\(date_to_string)"
+        let endpointUrl = "\(self.url)?fly_from=\(self.flyFrom)&fly_to=\(flyTo)&date_from=\(date_from_string)&date_to=\(date_to_string)"
         
         let safeEndpointUrlString = endpointUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
@@ -124,7 +146,26 @@ class Tequila: ObservableObject {
         request.setValue(self.apiKey, forHTTPHeaderField: "apikey")
         
         self.loadJson(request: request, completion: { response in
-            self.response = response
+            df.dateFormat = ""
+            
+            for flight in response.data! {
+                if flight.cityTo != self.lastWeatherLocation {
+                    WeatherManager.shared.fetchWeather(
+                        cityName: flight.cityTo,
+                        countryID: flight.countryTo.code,
+                        completion: { weatherData in
+                            DispatchQueue.main.async {
+                                self.response.append(FetchedData(flight: flight, weather: weatherData))
+                                self.lastWeatherLocation = flight.cityTo
+                                self.lastWeatherData = weatherData
+                            }
+                        }
+                    )
+                }
+                else {
+                    self.response.append(FetchedData(flight: flight, weather: self.lastWeatherData))
+                }
+            }
         })
     }
     
