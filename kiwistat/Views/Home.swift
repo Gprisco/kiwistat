@@ -46,7 +46,7 @@ struct Home: View {
                             self.from = self.to
                             self.to = temp
                         }) {
-                            Text("Inverti")
+                            Image(systemName: "arrow.up.arrow.down")
                             
                         }
                         .frame(width: 50, height: 50, alignment: .center)
