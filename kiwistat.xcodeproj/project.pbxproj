@@ -24,6 +24,7 @@
 		01B9C1D723CF63D300EE79A8 /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B9C1D623CF63D300EE79A8 /* URLImage.swift */; };
 		01F950B123D0A53900E4896C /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F950B023D0A53900E4896C /* DateExtensions.swift */; };
 		81B0FCB123CD121F009DCD14 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B0FCB023CD121F009DCD14 /* Home.swift */; };
+		81EEA96523D1B8CD0017CB0E /* IATACodesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EEA96423D1B8CD0017CB0E /* IATACodesApi.swift */; };
 		9414438323CB3A7C0023C515 /* CKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9414438223CB3A7C0023C515 /* CKManager.swift */; };
 		946CB51523CB97E100E9E5C4 /* FavoriteFlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946CB51423CB97E100E9E5C4 /* FavoriteFlight.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +50,7 @@
 		01B9C1D623CF63D300EE79A8 /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
 		01F950B023D0A53900E4896C /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		81B0FCB023CD121F009DCD14 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		81EEA96423D1B8CD0017CB0E /* IATACodesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IATACodesApi.swift; sourceTree = "<group>"; };
 		9414438223CB3A7C0023C515 /* CKManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKManager.swift; sourceTree = "<group>"; };
 		946CB51423CB97E100E9E5C4 /* FavoriteFlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteFlight.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,6 +127,7 @@
 				010CB14423CB76ED00A86F26 /* TequilaModels.swift */,
 				946CB51423CB97E100E9E5C4 /* FavoriteFlight.swift */,
 				01A4B8FD23CF32DC0020A107 /* WeatherManager.swift */,
+				81EEA96423D1B8CD0017CB0E /* IATACodesApi.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				01A4B8FA23CDF0910020A107 /* Tickets.swift in Sources */,
 				010CB12E23C88C4F00A86F26 /* kiwistat.xcdatamodeld in Sources */,
 				010CB14523CB76ED00A86F26 /* TequilaModels.swift in Sources */,
+				81EEA96523D1B8CD0017CB0E /* IATACodesApi.swift in Sources */,
 				01A4B8FC23CDF2530020A107 /* Results.swift in Sources */,
 				0109B00423D0C3C700A29873 /* FlightDetails.swift in Sources */,
 				01B9C1D723CF63D300EE79A8 /* URLImage.swift in Sources */,
